@@ -3,6 +3,7 @@ package com.example.coolweather.util;
 import android.text.TextUtils;
 
 import com.example.coolweather.db.*;
+import com.example.coolweather.gson.Weather;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -95,6 +96,19 @@ public class Utility {
 //        }
 //        return null;
 //    }
+
+
+    public static Weather hanfleWeatherResponse(String response){
+        try{
+            JSONObject jsonObject=new JSONObject(response);
+            JSONArray jsonArray=jsonObject.getJSONArray("HeWeather");
+            String weatherContent=jsonArray.getJSONObject(0).toString();
+            return new Gson().fromJson(weatherContent,Weather.class);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 }
 
